@@ -10,7 +10,7 @@ struct MyBlog: Website {
 
     struct ItemMetadata: WebsiteItemMetadata {}
 
-    var url = URL(string: "https://kaneeast.github.io/MyBlog")!
+    var url = URL(string: "https://kaneeast.github.io")!
     var name = "我的博客"
     var description = "用 Swift Publish 创建的个人博客"
     var language: Language { .chinese }
