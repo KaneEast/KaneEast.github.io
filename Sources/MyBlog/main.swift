@@ -79,7 +79,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             )
         )
     }
-    
+
     func makeSectionHTML(for section: Section<Site>, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
@@ -122,7 +122,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             )
         )
     }
-    
+
     func makeItemHTML(for item: Item<Site>, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
@@ -165,7 +165,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             )
         )
     }
-    
+
     func makePageHTML(for page: Page, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
@@ -190,7 +190,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             )
         )
     }
-    
+
     func makeTagListHTML(for page: TagListPage, context: PublishingContext<Site>) throws -> HTML? {
         HTML(
             .lang(context.site.language),
@@ -227,7 +227,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             )
         )
     }
-    
+
     func makeTagDetailsHTML(for page: TagDetailsPage, context: PublishingContext<Site>) throws -> HTML? {
         HTML(
             .lang(context.site.language),
@@ -284,7 +284,7 @@ extension DateFormatter {
 
 // 使用自定义主题的发布配置
 try MyBlog().publish(
-    at: Path("Output"),
+    //at: Path("Output"),
     using: [
         .addMarkdownFiles(),
         .copyResources(),
