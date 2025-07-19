@@ -12,9 +12,9 @@ struct MyBlog: Website {
     struct ItemMetadata: WebsiteItemMetadata {}
 
     var url = URL(string: "https://kaneeast.github.io")!
-    var name = "我的博客"
-    var description = "用 Swift Publish 创建的个人博客"
-    var language: Language { .chinese }
+    var name = "My Blog"
+    var description = "A personal blog created with Swift Publish"
+    var language: Language { .english }
     var imagePath: Path? { nil }
 }
 
@@ -44,9 +44,9 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                 .header(
                     .nav(
                         .ul(
-                            .li(.a(.text("首页"), .href("/"))),
-                            .li(.a(.text("文章"), .href("/posts"))),
-                            .li(.a(.text("关于"), .href("/about")))
+                            .li(.a(.text("Home"), .href("/"))),
+                            .li(.a(.text("Posts"), .href("/posts"))),
+                            .li(.a(.text("About"), .href("/about")))
                         )
                     )
                 ),
@@ -54,7 +54,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     .class("wrapper"),
                     .h1(.text(index.title)),
                     .p(.text(index.description)),
-                    .h2("最新文章"),
+                    .h2("Latest Posts"),
                     .ul(
                         .class("item-list"),
                         .forEach(context.allItems(sortedBy: \.date, order: .descending)) { item in
@@ -62,7 +62,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                                 .article(
                                     .h3(.a(.href(item.path), .text(item.title))),
                                     .p(.text(item.description)),
-                                    .p(.text("发布于: \(DateFormatter.blog.string(from: item.date))")),
+                                    .p(.text("Published: \(DateFormatter.blog.string(from: item.date))")),
                                     .div(
                                         .class("tags"),
                                         .forEach(item.tags) { tag in
@@ -75,7 +75,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     )
                 ),
                 .footer(
-                    .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
+                    .p(.text("© 2025 \(context.site.name). Built with Swift Publish."))
                 )
             )
         )
@@ -94,9 +94,9 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                 .header(
                     .nav(
                         .ul(
-                            .li(.a(.text("首页"), .href("/"))),
-                            .li(.a(.text("文章"), .href("/posts"))),
-                            .li(.a(.text("关于"), .href("/about")))
+                            .li(.a(.text("Home"), .href("/"))),
+                            .li(.a(.text("Posts"), .href("/posts"))),
+                            .li(.a(.text("About"), .href("/about")))
                         )
                     )
                 ),
@@ -110,7 +110,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                                 .article(
                                     .h3(.a(.href(item.path), .text(item.title))),
                                     .p(.text(item.description)),
-                                    .p(.text("发布于: \(DateFormatter.blog.string(from: item.date))")),
+                                    .p(.text("Published: \(DateFormatter.blog.string(from: item.date))")),
                                     .div(
                                         .class("tags"),
                                         .forEach(item.tags) { tag in
@@ -123,7 +123,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     )
                 ),
                 .footer(
-                    .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
+                    .p(.text("© 2025 \(context.site.name). Built with Swift Publish."))
                 )
             )
         )
@@ -142,20 +142,20 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                 .header(
                     .nav(
                         .ul(
-                            .li(.a(.text("首页"), .href("/"))),
-                            .li(.a(.text("文章"), .href("/posts"))),
-                            .li(.a(.text("关于"), .href("/about")))
+                            .li(.a(.text("Home"), .href("/"))),
+                            .li(.a(.text("Posts"), .href("/posts"))),
+                            .li(.a(.text("About"), .href("/about")))
                         )
                     )
                 ),
                 .div(
                     .class("wrapper"),
                     .article(
-                        .h1(.text(item.title)),
+                        //.h1(.text(item.title)),
                         .p(.class("meta"), .text("发布于: \(DateFormatter.blog.string(from: item.date))")),
                         .div(
                             .class("tags"),
-                            .text("标签: "),
+                            .text("Tags: "),
                             .forEach(item.tags) { tag in
                                 .a(
                                     .class("tag"),
@@ -171,7 +171,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     )
                 ),
                 .footer(
-                    .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
+                    .p(.text("© 2025 \(context.site.name). Built with Swift Publish."))
                 )
             )
         )
@@ -190,9 +190,9 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                 .header(
                     .nav(
                         .ul(
-                            .li(.a(.text("首页"), .href("/"))),
-                            .li(.a(.text("文章"), .href("/posts"))),
-                            .li(.a(.text("关于"), .href("/about")))
+                            .li(.a(.text("Home"), .href("/"))),
+                            .li(.a(.text("Posts"), .href("/posts"))),
+                            .li(.a(.text("About"), .href("/about")))
                         )
                     )
                 ),
@@ -201,7 +201,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     .contentBody(page.body)
                 ),
                 .footer(
-                    .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
+                    .p(.text("© 2025 \(context.site.name). Built with Swift Publish."))
                 )
             )
         )
@@ -213,22 +213,22 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             .head(
                 .meta(.charset(.utf8)),
                 .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
-                .title("所有标签"),
+                .title("All Tags"),
                 .stylesheet("/styles.css")
             ),
             .body(
                 .header(
                     .nav(
                         .ul(
-                            .li(.a(.text("首页"), .href("/"))),
-                            .li(.a(.text("文章"), .href("/posts"))),
-                            .li(.a(.text("关于"), .href("/about")))
+                            .li(.a(.text("Home"), .href("/"))),
+                            .li(.a(.text("Posts"), .href("/posts"))),
+                            .li(.a(.text("About"), .href("/about")))
                         )
                     )
                 ),
                 .div(
                     .class("wrapper"),
-                    .h1("所有标签"),
+                    .h1("All Tags"),
                     .ul(
                         .class("all-tags"),
                         .forEach(page.tags.sorted()) { tag in
@@ -243,7 +243,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     )
                 ),
                 .footer(
-                    .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
+                    .p(.text("© 2025 \(context.site.name). Built with Swift Publish."))
                 )
             )
         )
@@ -255,25 +255,25 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
             .head(
                 .meta(.charset(.utf8)),
                 .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
-                .title("标签: \(page.tag.string)"),
+                .title("Tag: \(page.tag.string)"),
                 .stylesheet("/styles.css")
             ),
             .body(
                 .header(
                     .nav(
                         .ul(
-                            .li(.a(.text("首页"), .href("/"))),
-                            .li(.a(.text("文章"), .href("/posts"))),
-                            .li(.a(.text("关于"), .href("/about")))
+                            .li(.a(.text("Home"), .href("/"))),
+                            .li(.a(.text("Posts"), .href("/posts"))),
+                            .li(.a(.text("About"), .href("/about")))
                         )
                     )
                 ),
                 .div(
                     .class("wrapper"),
-                    .h1("标签: \(page.tag.string)"),
+                    .h1("Tag: \(page.tag.string)"),
                     .a(
                         .class("browse-all"),
-                        .text("浏览所有标签"),
+                        .text("Browse All Tags"),
                         .href(context.site.tagListPath)
                     ),
                     .ul(
@@ -290,7 +290,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     )
                 ),
                 .footer(
-                    .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
+                    .p(.text("© 2025 \(context.site.name). Built with Swift Publish."))
                 )
             )
         )
@@ -303,7 +303,7 @@ extension DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
-        formatter.locale = Locale(identifier: "zh_CN")
+        formatter.locale = Locale(identifier: "en_US")
         return formatter
     }()
 }

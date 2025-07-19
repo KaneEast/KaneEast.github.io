@@ -10,7 +10,7 @@ In today's rapidly evolving world of artificial intelligence, information is eve
 But I still insist on writing with my own thoughts and experiences.
 
 Not because I don't recognize AI's power, but because I believe:
-**Only by using my own voice can I truly reach the heart and connect with readers.**
+**Only by using my own voice can I truly reach the heart and connect with others.**
 
 This blog is a record of my continuous journey of discovery,
 and a space where I thoughtfully share more of my unique stories and heartfelt insights.
