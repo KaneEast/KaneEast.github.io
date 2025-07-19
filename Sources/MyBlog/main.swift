@@ -1,43 +1,45 @@
-// 修复后的自定义主题代码
 import Foundation
 import Publish
 import Plot
 
-// 网站结构定义
 struct MyBlog: Website {
     enum SectionID: String, WebsiteSectionID {
         case posts
         case about
     }
 
-    struct ItemMetadata: WebsiteItemMetadata {
-        // 可以添加自定义元数据
-    }
+    struct ItemMetadata: WebsiteItemMetadata {}
 
-    var url = URL(string: "https://yourusername.github.io/MyBlog")!
+    var url = URL(string: "https://kaneeast.github.io/MyBlog")!
     var name = "我的博客"
     var description = "用 Swift Publish 创建的个人博客"
     var language: Language { .chinese }
     var imagePath: Path? { nil }
 }
 
-// 修复后的自定义主题
 extension Theme {
     static var custom: Self {
         Theme(
             htmlFactory: CustomHTMLFactory(),
-            resourcePaths: ["Resources/CustomTheme/styles.css"]
+            resourcePaths: ["Resources/CustomTheme/styles.css"] // 保持原来的配置
         )
     }
 }
 
+// 修复后的CustomHTMLFactory
 private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     func makeIndexHTML(for index: Index, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: index, on: context.site),
+            .head(
+                .meta(.charset(.utf8)),
+                .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
+                .title(index.title),
+                .description(index.description),
+                // 修复：使用正确的CSS链接格式
+                .stylesheet("/styles.css")
+            ),
             .body(
-                // 修复：使用简化的header
                 .header(
                     .nav(
                         .ul(
@@ -52,7 +54,6 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     .h1(.text(index.title)),
                     .p(.text(index.description)),
                     .h2("最新文章"),
-                    // 修复：使用正确的文章列表格式
                     .ul(
                         .class("item-list"),
                         .forEach(context.allItems(sortedBy: \.date, order: .descending)) { item in
@@ -72,7 +73,6 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                         }
                     )
                 ),
-                // 修复：使用简化的footer
                 .footer(
                     .p(.text("© 2025 \(context.site.name). 使用 Swift Publish 构建。"))
                 )
@@ -83,7 +83,12 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     func makeSectionHTML(for section: Section<Site>, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: section, on: context.site),
+            .head(
+                .meta(.charset(.utf8)),
+                .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
+                .title(section.title),
+                .stylesheet("/styles.css")
+            ),
             .body(
                 .header(
                     .nav(
@@ -126,7 +131,12 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     func makeItemHTML(for item: Item<Site>, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: item, on: context.site),
+            .head(
+                .meta(.charset(.utf8)),
+                .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
+                .title(item.title),
+                .stylesheet("/styles.css")
+            ),
             .body(
                 .header(
                     .nav(
@@ -169,7 +179,12 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     func makePageHTML(for page: Page, context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            .head(
+                .meta(.charset(.utf8)),
+                .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
+                .title(page.title),
+                .stylesheet("/styles.css")
+            ),
             .body(
                 .header(
                     .nav(
@@ -194,7 +209,12 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     func makeTagListHTML(for page: TagListPage, context: PublishingContext<Site>) throws -> HTML? {
         HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            .head(
+                .meta(.charset(.utf8)),
+                .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
+                .title("所有标签"),
+                .stylesheet("/styles.css")
+            ),
             .body(
                 .header(
                     .nav(
@@ -231,7 +251,12 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     func makeTagDetailsHTML(for page: TagDetailsPage, context: PublishingContext<Site>) throws -> HTML? {
         HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            .head(
+                .meta(.charset(.utf8)),
+                .meta(.name("viewport"), .content("width=device-width, initial-scale=1")),
+                .title("标签: \(page.tag.string)"),
+                .stylesheet("/styles.css")
+            ),
             .body(
                 .header(
                     .nav(
@@ -271,7 +296,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
     }
 }
 
-// 日期格式化扩展
+// 日期格式化
 extension DateFormatter {
     static let blog: DateFormatter = {
         let formatter = DateFormatter()
@@ -282,14 +307,11 @@ extension DateFormatter {
     }()
 }
 
-// 使用自定义主题的发布配置
-try MyBlog().publish(
-    //at: Path("Output"),
-    using: [
-        .addMarkdownFiles(),
-        .copyResources(),
-        .generateHTML(withTheme: .custom),
-        .generateRSSFeed(including: [.posts]),
-        .generateSiteMap()
-    ]
-)
+// 发布配置
+try MyBlog().publish(using: [
+    .addMarkdownFiles(),
+    .copyResources(),
+    .generateHTML(withTheme: .custom),
+    .generateRSSFeed(including: [.posts]),
+    .generateSiteMap()
+])
