@@ -1,0 +1,10 @@
+.DS_Store
+/build
+/.build
+/.swiftpm
+/*.xcodeproj
+.publish
+.swiftpm/*
+.build
+.build/
+.build/*
