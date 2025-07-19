@@ -152,7 +152,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                     .class("wrapper"),
                     .article(
                         //.h1(.text(item.title)),
-                        .p(.class("meta"), .text("发布于: \(DateFormatter.blog.string(from: item.date))")),
+                        .p(.class("meta"), .text("Published: \(DateFormatter.blog.string(from: item.date))")),
                         .div(
                             .class("tags"),
                             .text("Tags: "),
@@ -283,7 +283,7 @@ private struct CustomHTMLFactory<Site: Website>: HTMLFactory {
                                 .article(
                                     .h3(.a(.href(item.path), .text(item.title))),
                                     .p(.text(item.description)),
-                                    .p(.text("发布于: \(DateFormatter.blog.string(from: item.date))"))
+                                    .p(.text("Published: \(DateFormatter.blog.string(from: item.date))"))
                                 )
                             )
                         }
