@@ -3,31 +3,38 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v4
 
-    - name: Setup Swift
-      uses: swift-actions/setup-swift@v1
+    - name: Cache Swift packages
+      uses: actions/cache@v3
       with:
-        swift-version: "5.8"
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
 
-    - name: Install Publish
+    - name: Build site with Swift
       run: |
-        git clone https://github.com/JohnSundell/Publish.git
-        cd Publish
-        make
+        swift build
+        swift run
 
-    - name: Build site
-      run: publish generate
+    - name: List output files
+      run: |
+        echo "Current directory contents:"
+        ls -la
+        echo "Output directory contents:"
+        ls -la Output/ || echo "No Output directory found"
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./Output
-        #cname: yourdomain.com  # 可选：如果你有自定义域名
