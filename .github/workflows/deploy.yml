@@ -5,8 +5,22 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# 添加权限配置
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 只允许一个并发部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: macos-latest
 
     steps:
@@ -26,15 +40,11 @@ jobs:
         swift build
         swift run
 
-    - name: List output files
-      run: |
-        echo "Current directory contents:"
-        ls -la
-        echo "Output directory contents:"
-        ls -la Output/ || echo "No Output directory found"
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./Output
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./Output
+      id: deployment
+      uses: actions/deploy-pages@v4
