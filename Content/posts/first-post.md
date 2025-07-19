@@ -1,10 +1,10 @@
 ---
 date: 2025-07-19 12:00
-description: AI and Human Consciousness: Writing with My Own Voice in the Age of AI
+description: Writing with My Own Voice in the Age of AI
 tags: FirstPost
 ---
 
-# Why I Choose to Write Original Content in the Age of AI
+# Writing with My Own Voice in the Age of AI
 
 In today's rapidly evolving world of artificial intelligence, information is everywhere. Smart assistants can generate content quickly, sometimes replacing parts of the writing process.
 But I still insist on writing with my own thoughts and experiences.
@@ -17,4 +17,4 @@ and a space where I thoughtfully share more of my unique stories and heartfelt i
 
 I welcome you to join me on this path.
 
-— [Your Name]
+— Kane
