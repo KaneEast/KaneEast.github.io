@@ -26,7 +26,7 @@ extension Theme {
     static var custom: Self {
         Theme(
             htmlFactory: CustomHTMLFactory(),
-            resourcePaths: ["Resources/styles.css"]
+            resourcePaths: ["Resources/CustomTheme/styles.css"]
         )
     }
 }

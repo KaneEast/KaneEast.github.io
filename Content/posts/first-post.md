@@ -1,10 +1,10 @@
 ---
-date: 2024-01-15 12:00
-description: 我的第一篇博客文章
-tags: swift, 博客, 编程
+date: 2025-07-19 12:00
+description: Ask Chat GPT about AI
+tags: AI, Human
 ---
 
-# 我的第一篇文章
+# Ask Chat GPT about AI
 
 欢迎来到我的博客！这是用 Swift Publish 创建的第一篇文章。
 
